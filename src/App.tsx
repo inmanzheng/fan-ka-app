@@ -28,6 +28,7 @@ const App: React.FC = () => {
   }
   const speak = (text: string, lang: string) => {
     if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // 新增：每次播放前先停止上一次
       const utter = new window.SpeechSynthesisUtterance(text);
       const voice = getBestVoice(lang);
       if (voice) utter.voice = voice;
@@ -41,23 +42,16 @@ const App: React.FC = () => {
   const card = flashcards[index];
 
   return (
-    <div className="app-container">
-      <h1>翻卡记忆应用</h1>
-      <Flashcard chinese={card.chinese} english={card.english} flipped={flipped} setFlipped={setFlipped} />
-      <div className="card-actions">
-        {flipped ? (
-          <button className="speak-btn big" onClick={() => speak(card.english, 'en-US')}>🔊 Speak English</button>
-        ) : (
-          <button className="speak-btn big" onClick={() => speak(card.chinese, 'zh-CN')}>🔊 中文发音</button>
-        )}
-        <button className="flip-btn big" onClick={() => setFlipped(f => !f)}>{flipped ? '显示中文' : '显示英文'}</button>
+    <>
+      <div className="app-container">
+        <Flashcard chinese={card.chinese} english={card.english} flipped={flipped} setFlipped={setFlipped} />
       </div>
-      <div className="controls">
+      <div className="controls-fixed-bottom">
         <button onClick={prev} className="nav-btn">上一张</button>
         <span>{index + 1} / {total}</span>
         <button onClick={next} className="nav-btn">下一张</button>
       </div>
-    </div>
+    </>
   );
 };
 

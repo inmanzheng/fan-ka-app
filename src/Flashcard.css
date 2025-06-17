@@ -3,7 +3,7 @@
   max-width: 420px;
   min-width: 220px;
   min-height: 120px;
-  margin: 0 auto 16px auto;
+  margin: 60px auto;
   perspective: 1000px;
   cursor: pointer;
 }

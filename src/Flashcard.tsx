@@ -22,6 +22,7 @@ function getBestVoice(lang: string): SpeechSynthesisVoice | null {
 
 const speak = (text: string, lang: string) => {
   if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel(); // 新增：每次播放前先停止上一次
     const utter = new window.SpeechSynthesisUtterance(text);
     const voice = getBestVoice(lang);
     if (voice) utter.voice = voice;
