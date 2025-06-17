@@ -1,4 +1,4 @@
-import { TextToSpeechClient } from "tencentcloud-sdk-nodejs/tencentcloud/services/tts/v20190823/tts_client";
+import { Client } from "tencentcloud-sdk-nodejs/tencentcloud/services/tts/v20190823/tts_client";
 import { ClientConfig } from "tencentcloud-sdk-nodejs/tencentcloud/common/interface";
 
 // 确保环境变量已在 Vercel 配置
@@ -40,7 +40,7 @@ export default async (req: any, res: any) => {
     return res.status(500).send("Server configuration error");
   }
 
-  const client = new TextToSpeechClient(clientConfig);
+  const client = new Client(clientConfig);
 
   try {
     const response = await client.TextToSpeech({ 
