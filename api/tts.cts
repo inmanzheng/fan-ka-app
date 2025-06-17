@@ -1,11 +1,11 @@
-import { Client } from "tencentcloud-sdk-nodejs/tencentcloud/services/tts/v20190823/tts_client";
-import { ClientConfig } from "tencentcloud-sdk-nodejs/tencentcloud/common/interface";
+const { Client } = require("tencentcloud-sdk-nodejs/tencentcloud/services/tts/v20190823/tts_client");
+const { ClientConfig } = require("tencentcloud-sdk-nodejs/tencentcloud/common/interface");
 
 // 确保环境变量已在 Vercel 配置
 const secretId = process.env.TENCENTCLOUD_SECRET_ID;
 const secretKey = process.env.TENCENTCLOUD_SECRET_KEY;
 
-const clientConfig: ClientConfig = {
+const clientConfig = {
   credential: {
     secretId: secretId,
     secretKey: secretKey,
@@ -19,12 +19,12 @@ const clientConfig: ClientConfig = {
 };
 
 // 腾讯云 TTS 支持的语音模型和语言映射
-const VOICE_MAP: { [key: string]: string } = {
+const VOICE_MAP = {
   "zh-CN": "zh-CN", // 中文普通话，默认通用音色
   "en-US": "en-US", // 英文，默认通用音色
 };
 
-export default async (req: any, res: any) => {
+module.exports = async (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).send("Method Not Allowed");
   }
@@ -66,7 +66,7 @@ export default async (req: any, res: any) => {
       console.error("Tencent Cloud TTS API returned no audio.", response);
       res.status(500).send("Failed to get audio from Tencent Cloud.");
     }
-  } catch (error: any) {
+  } catch (error) { // 捕获错误时不需要 : any
     console.error("Error calling Tencent Cloud TTS API:", error.message);
     res.status(500).send("Error generating speech: " + error.message);
   }

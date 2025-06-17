@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "outDir": "../.vercel/output/functions/api",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "resolveJsonModule": true
+  },
+  "include": ["./**/*.cts"],
+  "exclude": ["node_modules"]
+} 
