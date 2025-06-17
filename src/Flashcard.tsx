@@ -6,6 +6,7 @@ interface FlashcardProps {
   english: string;
   flipped: boolean;
   setFlipped: (f: boolean | ((f: boolean) => boolean)) => void;
+  onSpeak: (text: string, lang: string) => void;
 }
 
 // 语音选择优化：优先选用更自然的 voice
@@ -33,11 +34,11 @@ const speak = (text: string, lang: string) => {
   }
 };
 
-const Flashcard: React.FC<FlashcardProps> = ({ chinese, english, flipped, setFlipped }) => {
+const Flashcard: React.FC<FlashcardProps> = ({ chinese, english, flipped, setFlipped, onSpeak }) => {
   // 阻止事件冒泡，点击文字时只发音不翻面
   const handleSpeak = (e: React.MouseEvent, text: string, lang: string) => {
     e.stopPropagation();
-    speak(text, lang);
+    onSpeak(text, lang);
   };
 
   return (

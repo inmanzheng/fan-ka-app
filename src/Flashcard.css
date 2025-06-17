@@ -3,9 +3,10 @@
   max-width: 420px;
   min-width: 220px;
   min-height: 120px;
-  margin: 60px auto;
+  margin: 100px auto;
   perspective: 1000px;
   cursor: pointer;
+  transform: translateY(-100px);
 }
 @media (max-width: 600px) {
   .flashcard {
@@ -13,6 +14,7 @@
     min-width: 0;
     max-width: 99vw;
     min-height: 100px;
+    transform: translateY(-50px);
   }
 }
 .flashcard-inner {
