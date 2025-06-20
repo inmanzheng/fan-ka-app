@@ -1,9 +1,7 @@
 const textToSpeech = require('@google-cloud/text-to-speech');
 
-// 读取 Vercel 环境变量中的 JSON 内容
+// 直接用 JSON 字符串初始化客户端（无需写临时文件）
 const credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
-
-// 初始化 Google TTS 客户端
 const client = new textToSpeech.TextToSpeechClient({
   credentials: credentials ? JSON.parse(credentials) : undefined
 });
@@ -16,14 +14,11 @@ module.exports = async (req, res) => {
   try {
     const [response] = await client.synthesizeSpeech({
       input: { text },
-      voice: {
-        languageCode: lang,
-        ssmlGender: 'NEUTRAL',
-      },
+      voice: { languageCode: lang, ssmlGender: 'FEMALE' },
       audioConfig: { audioEncoding: 'MP3' },
     });
     if (response.audioContent) {
-      res.setHeader("Content-Type", "audio/mpeg");
+      res.setHeader("Content-Type", "audio/mp3");
       res.send(Buffer.from(response.audioContent, 'base64'));
     } else {
       res.status(500).send("Failed to get audio from Google TTS.");
