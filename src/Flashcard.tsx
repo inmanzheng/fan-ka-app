@@ -9,7 +9,7 @@ interface FlashcardProps {
 }
 
 const Flashcard: React.FC<FlashcardProps> = ({ chinese, english, flipped, setFlipped }) => {
-  // 只允许背面英文发音，调用腾讯云TTS
+  // 只允许背面英文发音，调用 Google TTS
   const handleSpeak = async (e: React.MouseEvent, text: string, lang: string) => {
     e.stopPropagation();
     try {
